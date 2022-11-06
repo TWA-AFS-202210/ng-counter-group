@@ -1,0 +1,81 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CounterComponent } from './counter.component';
+
+describe('CounterComponent', () => {
+  let component: CounterComponent;
+  let fixture: ComponentFixture<CounterComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ CounterComponent ]
+    })
+      .compileComponents();
+
+    fixture = TestBed.createComponent(CounterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should add 1 when click plus button', () => {
+    // given
+    component.counter.count = 0;
+    const plusBtn = fixture.nativeElement.querySelector('[data-test="plusBtn"]');
+    // when
+    plusBtn.click();
+    fixture.detectChanges();
+    // then
+    const displayCount = fixture.nativeElement.querySelector('[data-test="displayCount"]')
+    expect(displayCount.textContent).toEqual('number: 1')
+  }); 
+
+  it('should add 1 when click plus button', () => {
+    // given
+    component.counter.count = 0;
+    const plusBtn = fixture.nativeElement.querySelector('[data-test="plusBtn"]');
+    // when
+    plusBtn.click();
+    fixture.detectChanges();
+    // then
+    const displayCount = fixture.nativeElement.querySelector('[data-test="displayCount"]')
+    expect(displayCount.textContent).toEqual('number: 1')
+  }); 
+
+  it('should minus btn disappear when count number less than 0', () => {
+    // given 
+    component.counter.count = -1;
+    // when
+    fixture.detectChanges();
+    // then
+    const minusBtn = fixture.nativeElement.querySelector('[data-test="minusBtn"]');
+    expect(minusBtn).toBeFalsy()
+  });
+
+  it('should plus btn disappear when count number large than 10', () => {
+    // given 
+    component.counter.count = 11;
+    // when
+    fixture.detectChanges();
+    // then
+    const plusBtn = fixture.nativeElement.querySelector('[data-test="plusBtn"]');
+    expect(plusBtn).toBeFalsy()
+  });
+
+  it('should return false when count number less than 0', () => {
+    // given
+    component.counter.count = -1;
+    // when
+    expect(component.isLargeOrEqualsThanZore()).toBeFalse();
+  });
+
+  it('should return true when count number not less than 0', () => {
+    // given
+    component.counter.count = 1;
+    // when
+    expect(component.isLargeOrEqualsThanZore()).toBeTrue();
+  });
+});
